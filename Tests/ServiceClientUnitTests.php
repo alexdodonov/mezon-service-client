@@ -16,6 +16,7 @@ namespace Mezon\Service\Tests;
  *
  * @author Dodonov A.
  * @group baseTests
+ * @codeCoverageIgnore
  */
 class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
 {
@@ -295,7 +296,8 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
     /**
      * Testing setting and getting rewrite mode
      */
-    public function testRewriteMode():void{
+    public function testRewriteMode(): void
+    {
         // setup
         $mock = $this->getServiceClientMock('login-with-invalid-session-id');
 
@@ -305,5 +307,30 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
 
         $mock->setRewriteMode(false);
         $this->assertFalse($mock->getRewriteMode());
+    }
+
+    /**
+     * Testing authentication headers
+     */
+    public function testAuthenticationHeaders(): void
+    {
+        // setup and assertions
+        $client = $this->getServiceClientRawMock([
+            'sendRequest'
+        ]);
+        $client->method('sendRequest')->with(
+            $this->callback(function ($url) {
+                return true;
+            }),
+            $this->callback(
+                function ($headers) {
+                    $this->assertContains('Authentication: Basic some-token', $headers);
+                    $this->assertContains('Cgi-Authorization: Basic some-token', $headers);
+                    return true;
+                }))->willReturn(["{\"session_id\":\"some-password\"}",200]);
+        $client->setToken('some-token');
+
+        // test body
+        $client->connect('some-login', 'some-password');
     }
 }

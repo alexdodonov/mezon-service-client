@@ -12,3 +12,11 @@ composer require mezon/service-client
 ```
 
 And that's all )
+
+## Setup
+
+First of all you need to create client and set to wich service it must send requests:
+
+```PHP
+$client = new \Mezon\Service\ServiceClient('https://some-service.com/');
+```
