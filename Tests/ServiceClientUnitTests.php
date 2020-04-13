@@ -10,6 +10,21 @@ namespace Mezon\Service\Tests;
  * @version v.1.0 (2019/09/20)
  * @copyright Copyright (c) 2019, aeon.org
  */
+class TestingServiceClient extends \Mezon\Service\ServiceClient
+{
+
+    /**
+     * Method returns concrete url byit's locator
+     *
+     * @param string $urlLocator
+     *            url locator
+     * @return string concrete URL
+     */
+    public function getRequestUriPublic(string $urlLocator): string
+    {
+        return $this->getRequestUrl($urlLocator);
+    }
+}
 
 /**
  * Basic tests for service client
@@ -318,7 +333,8 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
         $client = $this->getServiceClientRawMock([
             'sendRequest'
         ]);
-        $client->method('sendRequest')->with(
+        $client->method('sendRequest')
+            ->with(
             $this->callback(function ($url) {
                 return true;
             }),
@@ -327,10 +343,27 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
                     $this->assertContains('Authentication: Basic some-token', $headers);
                     $this->assertContains('Cgi-Authorization: Basic some-token', $headers);
                     return true;
-                }))->willReturn(["{\"session_id\":\"some-password\"}",200]);
+                }))
+            ->willReturn([
+            "{\"session_id\":\"some-password\"}",
+            200
+        ]);
         $client->setToken('some-token');
 
         // test body
         $client->connect('some-login', 'some-password');
+    }
+
+    /**
+     * Testing method
+     */
+    public function testGetRequestUrlException(): void
+    {
+        // setup and assertions
+        $this->expectException(\Exception::class);
+        $client = new TestingServiceClient('https://some-service');
+
+        // test body
+        $client->getRequestUriPublic('unexistingUri');
     }
 }

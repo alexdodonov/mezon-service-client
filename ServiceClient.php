@@ -22,7 +22,7 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
      *
      * @var string
      */
-    protected $service = '';
+    private $service = '';
 
     /**
      * Last logged in user
@@ -46,7 +46,7 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
      *
      * @var string
      */
-    protected $sessionId = false;
+    private $sessionId = false;
 
     /**
      * Constructor
@@ -302,7 +302,7 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
     {
         $this->rewriteMode = $rewriteMode;
     }
-    
+
     /**
      * Getting rewrite mode for URLs
      *
@@ -324,8 +324,8 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
     {
         $urlMap = [
             'loginAs' => $this->rewriteMode ? '/login-as/' : '?r=login-as',
-            'selfLogin' => $this->rewriteMode ? '/self/login/' : '?r='.urlecode('self/login'),
-            'selfId' => $this->rewriteMode ? '/self/id/' : '?r='.urlecode('self/id'),
+            'selfLogin' => $this->rewriteMode ? '/self/login/' : '?r=' . urlecode('self/login'),
+            'selfId' => $this->rewriteMode ? '/self/id/' : '?r=' . urlecode('self/id'),
             'connect' => $this->rewriteMode ? '/connect/' : '?r=connect'
         ];
 

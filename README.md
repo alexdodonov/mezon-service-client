@@ -20,3 +20,9 @@ First of all you need to create client and set to wich service it must send requ
 ```PHP
 $client = new \Mezon\Service\ServiceClient('https://some-service.com/');
 ```
+
+And since then you can connect to this service:
+
+```PHP
+client->connect('login', 'password');
+```
