@@ -14,7 +14,7 @@ class TestingServiceClient extends \Mezon\Service\ServiceClient
 {
 
     /**
-     * Method returns concrete url byit's locator
+     * Method returns concrete url by it's locator
      *
      * @param string $urlLocator
      *            url locator
@@ -23,6 +23,34 @@ class TestingServiceClient extends \Mezon\Service\ServiceClient
     public function getRequestUriPublic(string $urlLocator): string
     {
         return $this->getRequestUrl($urlLocator);
+    }
+
+    /**
+     * Result of the sendRequest method
+     *
+     * @var array
+     */
+    public $sendRequestResult = [
+        'body',
+        1
+    ];
+
+    /**
+     *
+     * @param string $url
+     *            URL
+     * @param array $headers
+     *            Headers
+     * @param string $method
+     *            Request HTTP Method
+     * @param array $data
+     *            Request data
+     * @return array Response body and HTTP code
+     * @codeCoverageIgnore
+     */
+    protected function sendRequest(string $url, array $headers, string $method, array $data = []): array
+    {
+        return $this->sendRequestResult;
     }
 }
 
@@ -277,7 +305,7 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
         $mock->loginAs('registered', 'id');
 
         // assertions
-        $this->assertFalse($mock->getStoredLogin());
+        $this->assertEquals('', $mock->getStoredLogin());
     }
 
     /**
@@ -365,5 +393,22 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
 
         // test body
         $client->getRequestUriPublic('unexistingUri');
+    }
+
+    /**
+     * Testing exception throwing if error response was got
+     */
+    public function testGetReuqetsUrlWithHandlingError(): void
+    {
+        // setup and assertions
+        $this->expectException(\Exception::class);
+        $client = new TestingServiceClient('https://some-service');
+        $client->sendRequestResult = [
+            '{"message":"", "code": 1}',
+            200
+        ];
+
+        // test body
+        $client->sendGetRequest('some endpoint');
     }
 }

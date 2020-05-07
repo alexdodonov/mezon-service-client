@@ -31,13 +31,13 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
      *
      * @var string
      */
-    private $login = false;
+    private $login = '';
 
     /**
      * Rewrite mode.
      * If true, then URLs like this /part1/part2/param1/ will be used. If false, then parameter ?r=part1/part2/param1 will be passed
      *
-     * @var string
+     * @var bool
      */
     private $rewriteMode = true;
 
@@ -77,74 +77,12 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
     }
 
     /**
-     * Method sends POST request to server
-     *
-     * @param string $endpoint
-     *            Calling endpoint
-     * @param array $data
-     *            Request data
-     * @return mixed Result of the request
-     */
-    public function sendPostRequest(string $endpoint, array $data = [])
-    {
-        $result = parent::sendPostRequest($endpoint, $data);
-
-        return json_decode($result);
-    }
-
-    /**
-     * Method sends GET request to server
-     *
-     * @param string $endpoint
-     *            Calling endpoint
-     * @return mixed Result of the remote call
-     */
-    public function sendGetRequest(string $endpoint)
-    {
-        $result = parent::sendGetRequest($endpoint);
-
-        return json_decode($result);
-    }
-
-    /**
-     * Method sends PUT request to server
-     *
-     * @param string $endpoint
-     *            Calling endpoint
-     * @param array $data
-     *            Request data
-     * @return mixed Result of the request
-     */
-    public function sendPutRequest(string $endpoint, array $data = [])
-    {
-        $result = parent::sendPutRequest($endpoint, $data);
-
-        return json_decode($result);
-    }
-
-    /**
-     * Method sends DELETE request to server
-     *
-     * @param string $endpoint
-     *            Calling endpoint
-     * @param array $data
-     *            Request data
-     * @return mixed Result of the remote call
-     */
-    public function sendDeleteRequest(string $endpoint, array $data = [])
-    {
-        $result = parent::sendDeleteRequest($endpoint, $data);
-
-        return json_decode($result);
-    }
-
-    /**
      * Method validates result
      *
      * @param object $resultResult
      *            of the authorisation request
      */
-    protected function validateSessionId(object $result)
+    protected function validateSessionId(object $result): void
     {
         if (isset($result->session_id) === false) {
             throw (new \Exception($result->message ?? 'Undefined message', $result->code ?? - 1));
@@ -159,7 +97,7 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
      * @param string $password
      *            Password
      */
-    public function connect(string $login, string $password)
+    public function connect(string $login, string $password): void
     {
         // authorization
         $data = [
@@ -183,7 +121,7 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
      * @param string $login
      *            User login
      */
-    public function setToken(string $token, string $login = '')
+    public function setToken(string $token, string $login = ''): void
     {
         if ($token === '') {
             throw (new \Exception('Token not set', - 4));
@@ -236,7 +174,7 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
      * @param string $field
      *            Field name for credentials
      */
-    public function loginAs(string $user, string $field = 'id')
+    public function loginAs(string $user, string $field = 'id'): void
     {
         if ($field != 'id' && $this->login !== $user) {
             $result = $this->sendPostRequest($this->getRequestUrl('loginAs'), [
@@ -249,7 +187,7 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
         }
 
         if ($field == 'id') {
-            $this->login = false;
+            $this->login = '';
         } else {
             $this->login = $user;
         }
@@ -260,7 +198,7 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
      *
      * @return string Stored login
      */
-    public function getStoredLogin()
+    public function getStoredLogin(): string
     {
         return $this->login;
     }
@@ -334,5 +272,21 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
         }
 
         return $urlMap[$urlLocator];
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     * @see \Mezon\CustomClient\CustomClient::dispatchResult(string $url, int $code, string $body)
+     */
+    protected function dispatchResult(string $url, int $code, string $body)
+    {
+        $jsonBody = json_decode(parent::dispatchResult($url, $code, $body));
+
+        if (isset($jsonBody->message)) {
+            throw (new \Exception($jsonBody->message, $jsonBody->code));
+        }
+
+        return $jsonBody;
     }
 }
