@@ -106,7 +106,7 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
      *            File name with testing data
      * @return object Mock object
      */
-    protected function getServiceClientMock(string $dataFile): object
+    protected function getServiceClientMock(string $dataFile = 'login-with-invalid-session-id'): object
     {
         $mock = $this->getServiceClientRawMock([
             'sendRequest'
@@ -285,12 +285,12 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
     public function testLoginAsWithInvalidSessionId(): void
     {
         // setup
-        $mock = $this->getServiceClientMock('login-with-invalid-session-id');
+        $mock = $this->getServiceClientMock();
 
         // test body and assertions
         $this->expectException(\Exception::class);
 
-        $mock->loginAs('registered', 'login');
+        $mock->loginAs('registered-user', 'login');
     }
 
     /**
@@ -299,7 +299,7 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
     public function testLoginAsWithInvalidSessionId2(): void
     {
         // setup
-        $mock = $this->getServiceClientMock('login-with-invalid-session-id');
+        $mock = $this->getServiceClientMock();
 
         // test body
         $mock->loginAs('registered', 'id');
@@ -329,7 +329,7 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
     public function testConstructWithLoginAndInvalidSessionId(): void
     {
         // setup
-        $mock = $this->getServiceClientMock('login-with-invalid-session-id');
+        $mock = $this->getServiceClientMock();
 
         // test body and assertions
         $this->expectException(\Exception::class);
@@ -342,7 +342,7 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
     public function testRewriteMode(): void
     {
         // setup
-        $mock = $this->getServiceClientMock('login-with-invalid-session-id');
+        $mock = $this->getServiceClientMock();
 
         // test body and assertions
         $mock->setRewriteMode(true);
@@ -363,7 +363,7 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
         ]);
         $client->method('sendRequest')
             ->with(
-            $this->callback(function ($url) {
+            $this->callback(function () {
                 return true;
             }),
             $this->callback(
@@ -405,6 +405,22 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
         $client = new TestingServiceClient('https://some-service');
         $client->sendRequestResult = [
             '{"message":"", "code": 1}',
+            200
+        ];
+
+        // test body
+        $client->sendGetRequest('some endpoint');
+    }
+
+    /**
+     * Mtrhod tests case when sendRequest method have returned invalid json
+     */
+    public function testInvalidJsonReturnedFromSendRequest():void{
+        // setup and assertions
+        $this->expectException(\Mezon\Rest\Exception::class);
+        $client = new TestingServiceClient('https://some-service');
+        $client->sendRequestResult = [
+            'some crap',
             200
         ];
 

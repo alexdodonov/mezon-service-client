@@ -285,6 +285,8 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
 
         if (isset($jsonBody->message)) {
             throw (new \Exception($jsonBody->message, $jsonBody->code));
+        } elseif ($jsonBody === null) {
+            throw (new \Mezon\Rest\Exception("Invalid result dispatching", - 3, $code, $body, $url));
         }
 
         return $jsonBody;
