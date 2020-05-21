@@ -214,6 +214,7 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
 
         if ($this->sessionId !== false) {
             $result[] = "Authentication: Basic " . $this->sessionId;
+            $result[] = "Authorization: Basic " . $this->sessionId;
             $result[] = "Cgi-Authorization: Basic " . $this->sessionId;
         }
 
