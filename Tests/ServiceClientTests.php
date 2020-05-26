@@ -59,7 +59,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
      */
     public function testValidConnect()
     {
-        $client = $this->construct_client();
+        $client = $this->constructClient();
 
         $this->assertNotEquals($client->getSessionId(), false, 'Connection failed');
         $this->assertEquals($client->Login, $this->existingLogin, 'Login was not saved');
@@ -71,7 +71,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
     public function testInValidConnect()
     {
         $this->expectException(\Exception::class);
-        $this->construct_client('1234567');
+        $this->constructClient('1234567');
     }
 
     /**
@@ -79,7 +79,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
      */
     public function testSetValidToken()
     {
-        $client = $this->construct_client();
+        $client = $this->constructClient();
 
         $newClient = new $this->clientClassName();
         $newClient->setToken($client->getSessionId());
@@ -92,7 +92,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
      */
     public function testSetValidTokenAndLogin()
     {
-        $client = $this->construct_client();
+        $client = $this->constructClient();
 
         $newClient = new $this->clientClassName();
         $newClient->setToken($client->getSessionId(), 'alexey@dodonov.none');
@@ -117,7 +117,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
      */
     public function testLoginAs()
     {
-        $client = $this->construct_client();
+        $client = $this->constructClient();
 
         try {
             $client->loginAs($this->existingLogin);
@@ -131,7 +131,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
      */
     public function testFailedLoginAs()
     {
-        $client = $this->construct_client();
+        $client = $this->constructClient();
 
         $this->expectException(\Exception::class);
         $client->loginAs('alexey@dodonov.none');
