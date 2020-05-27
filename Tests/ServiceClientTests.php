@@ -49,7 +49,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
      *
      * @param string $password
      */
-    protected function constructClient(string $password = 'root')
+    protected function constructClient(string $password = 'root'): object
     {
         return new $this->clientClassName($this->existingLogin, $password);
     }
@@ -57,7 +57,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
     /**
      * Testing API connection
      */
-    public function testValidConnect()
+    public function testValidConnect(): void
     {
         $client = $this->constructClient();
 
@@ -68,7 +68,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
     /**
      * Testing invalid API connection
      */
-    public function testInValidConnect()
+    public function testInValidConnect(): void
     {
         $this->expectException(\Exception::class);
         $this->constructClient('1234567');
@@ -77,7 +77,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
     /**
      * Testing setting valid token
      */
-    public function testSetValidToken()
+    public function testSetValidToken(): void
     {
         $client = $this->constructClient();
 
@@ -90,7 +90,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
     /**
      * Testing setting valid token and login
      */
-    public function testSetValidTokenAndLogin()
+    public function testSetValidTokenAndLogin(): void
     {
         $client = $this->constructClient();
 
@@ -104,7 +104,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
     /**
      * Testing setting invalid token
      */
-    public function testSetInValidToken()
+    public function testSetInValidToken(): void
     {
         $client = new $this->clientClassName();
 
@@ -115,7 +115,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
     /**
      * Testing loginAs method
      */
-    public function testLoginAs()
+    public function testLoginAs(): void
     {
         $client = $this->constructClient();
 
@@ -127,7 +127,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
     /**
      * Testing loginAs method with failed call
      */
-    public function testFailedLoginAs()
+    public function testFailedLoginAs(): void
     {
         $client = $this->constructClient();
 
@@ -138,7 +138,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
     /**
      * Testing situation that loginAs will not be called after the connect() call with the same login
      */
-    public function testSingleLoginAs()
+    public function testSingleLoginAs(): void
     {
         $this->assertEquals(0, 1, 'Test was not created');
     }
