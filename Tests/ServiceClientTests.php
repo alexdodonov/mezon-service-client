@@ -119,11 +119,9 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
     {
         $client = $this->constructClient();
 
-        try {
-            $client->loginAs($this->existingLogin);
-        } catch (\Exception $e) {
-            $this->assertEquals(0, 1, 'Login was was not called properly');
-        }
+        $client->loginAs($this->existingLogin);
+
+        $this->addToAssertionCount(1);
     }
 
     /**
