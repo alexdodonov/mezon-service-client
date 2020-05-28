@@ -46,7 +46,7 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
      *
      * @var string
      */
-    private $sessionId = false;
+    private $sessionId = '';
 
     /**
      * Constructor
@@ -212,7 +212,7 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
     {
         $result = parent::getCommonHeaders();
 
-        if ($this->sessionId !== false) {
+        if ($this->sessionId !== '') {
             $result[] = "Authentication: Basic " . $this->sessionId;
             $result[] = "Cgi-Authorization: Basic " . $this->sessionId;
         }
@@ -262,8 +262,8 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
     {
         $urlMap = [
             'loginAs' => $this->rewriteMode ? '/login-as/' : '?r=login-as',
-            'selfLogin' => $this->rewriteMode ? '/self/login/' : '?r=' . urlecode('self/login'),
-            'selfId' => $this->rewriteMode ? '/self/id/' : '?r=' . urlecode('self/id'),
+            'selfLogin' => $this->rewriteMode ? '/self/login/' : '?r=' . urlencode('self/login'),
+            'selfId' => $this->rewriteMode ? '/self/id/' : '?r=' . urlencode('self/id'),
             'connect' => $this->rewriteMode ? '/connect/' : '?r=connect'
         ];
 
