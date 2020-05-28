@@ -61,7 +61,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
     {
         $client = $this->constructClient();
 
-        $this->assertNotEquals($client->getSessionId(), false, 'Connection failed');
+        $this->assertNotEquals($client->getToken(), false, 'Connection failed');
         $this->assertEquals($client->Login, $this->existingLogin, 'Login was not saved');
     }
 
@@ -82,9 +82,9 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
         $client = $this->constructClient();
 
         $newClient = new $this->clientClassName();
-        $newClient->setToken($client->getSessionId());
+        $newClient->setToken($client->getToken());
 
-        $this->assertNotEquals($newClient->getSessionId(), false, 'Token was not set(1)');
+        $this->assertNotEquals($newClient->getToken(), false, 'Token was not set(1)');
     }
 
     /**
@@ -95,9 +95,9 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
         $client = $this->constructClient();
 
         $newClient = new $this->clientClassName();
-        $newClient->setToken($client->getSessionId(), 'alexey@dodonov.none');
+        $newClient->setToken($client->getToken(), 'alexey@dodonov.none');
 
-        $this->assertNotEquals($newClient->getSessionId(), false, 'Token was not set(2)');
+        $this->assertNotEquals($newClient->getToken(), false, 'Token was not set(2)');
         $this->assertNotEquals($newClient->getStoredLogin(), false, 'Login was not saved');
     }
 
