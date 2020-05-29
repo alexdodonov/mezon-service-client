@@ -64,16 +64,16 @@
         },
         {
             "name": "mezon/custom-client",
-            "version": "1.0.7",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-custom-client.git",
-                "reference": "6918f6f5eca689e172cc7a0cb8c5ae741b06e2ea"
+                "reference": "adf23c26bb5bd0166b16d2cf9231ca41c2751b9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-custom-client/zipball/6918f6f5eca689e172cc7a0cb8c5ae741b06e2ea",
-                "reference": "6918f6f5eca689e172cc7a0cb8c5ae741b06e2ea",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-custom-client/zipball/adf23c26bb5bd0166b16d2cf9231ca41c2751b9a",
+                "reference": "adf23c26bb5bd0166b16d2cf9231ca41c2751b9a",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +100,7 @@
             ],
             "description": "Small custom client routine",
             "homepage": "https://github.com/alexdodonov/mezon-custom-client",
-            "time": "2020-05-22T14:44:09+00:00"
+            "time": "2020-05-29T07:06:13+00:00"
         },
         {
             "name": "mezon/dns-client",
