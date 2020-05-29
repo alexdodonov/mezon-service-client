@@ -94,7 +94,7 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
         ]): object
     {
         return $this->getMockBuilder($this->clientClassName)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->disableOriginalConstructor()
             ->getMock();
     }

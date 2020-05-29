@@ -1,6 +1,8 @@
 <?php
 namespace Mezon\Service;
 
+use Mezon\CustomClient\CustomClient;
+
 /**
  * Class ServiceClient
  *
@@ -14,7 +16,7 @@ namespace Mezon\Service;
 /**
  * Service client for Service
  */
-class ServiceClient extends \Mezon\CustomClient\CustomClient
+class ServiceClient extends CustomClient
 {
 
     /**
@@ -277,9 +279,9 @@ class ServiceClient extends \Mezon\CustomClient\CustomClient
     /**
      *
      * {@inheritdoc}
-     * @see \Mezon\CustomClient\CustomClient::dispatchResult(string $url, int $code, string $body)
+     * @see CustomClient::dispatchResult(string $url, int $code, $body)
      */
-    protected function dispatchResult(string $url, int $code, string $body)
+    protected function dispatchResult(string $url, int $code, $body)
     {
         $jsonBody = json_decode(parent::dispatchResult($url, $code, $body));
 
