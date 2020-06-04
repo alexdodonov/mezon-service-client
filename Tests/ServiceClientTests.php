@@ -62,7 +62,7 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
         $client = $this->constructClient();
 
         $this->assertNotEquals($client->getToken(), false, 'Connection failed');
-        $this->assertEquals($client->Login, $this->existingLogin, 'Login was not saved');
+        $this->assertEquals($client->getStoredLogin(), $this->existingLogin, 'Login was not saved');
     }
 
     /**
