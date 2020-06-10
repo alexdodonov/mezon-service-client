@@ -132,14 +132,6 @@ class ServiceClientTests extends \PHPUnit\Framework\TestCase
         $client = $this->constructClient();
 
         $this->expectException(\Exception::class);
-        $client->loginAs('alexey@dodonov.none');
-    }
-
-    /**
-     * Testing situation that loginAs will not be called after the connect() call with the same login
-     */
-    public function testSingleLoginAs(): void
-    {
-        $this->assertEquals(0, 1, 'Test was not created');
+        $client->loginAs('alexey@dodonov.none', 'login');
     }
 }
