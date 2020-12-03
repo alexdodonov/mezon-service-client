@@ -1,58 +1,9 @@
 <?php
 namespace Mezon\Service\Tests;
 
-/**
- * Class ServiceClientUnitTests
- *
- * @package ServiceClient
- * @subpackage ServiceClientUnitTests
- * @author Dodonov A.A.
- * @version v.1.0 (2019/09/20)
- * @copyright Copyright (c) 2019, aeon.org
- */
-class TestingServiceClient extends \Mezon\Service\ServiceClient
-{
-
-    /**
-     * Method returns concrete url by it's locator
-     *
-     * @param string $urlLocator
-     *            url locator
-     * @return string concrete URL
-     */
-    public function getRequestUriPublic(string $urlLocator): string
-    {
-        return $this->getRequestUrl($urlLocator);
-    }
-
-    /**
-     * Result of the sendRequest method
-     *
-     * @var array
-     */
-    public $sendRequestResult = [
-        'body',
-        1
-    ];
-
-    /**
-     *
-     * @param string $url
-     *            URL
-     * @param array $headers
-     *            Headers
-     * @param string $method
-     *            Request HTTP Method
-     * @param array $data
-     *            Request data
-     * @return array Response body and HTTP code
-     * @codeCoverageIgnore
-     */
-    protected function sendRequest(string $url, array $headers, string $method, array $data = []): array
-    {
-        return $this->sendRequestResult;
-    }
-}
+use PHPUnit\Framework\TestCase;
+use Mezon\Service\ServiceClient;
+use Mezon\DnsClient\DnsClient;
 
 /**
  * Basic tests for service client
@@ -61,21 +12,21 @@ class TestingServiceClient extends \Mezon\Service\ServiceClient
  * @group baseTests
  * @codeCoverageIgnore
  */
-class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
+class ServiceClientUnitTests extends TestCase
 {
 
     /**
      * Client class name
      */
-    protected $clientClassName = \Mezon\Service\ServiceClient::class;
+    protected $clientClassName = ServiceClient::class;
 
     /**
      * Common setup for all tests
      */
     public function setUp(): void
     {
-        \Mezon\DnsClient\DnsClient::clear();
-        \Mezon\DnsClient\DnsClient::setService('existing-service', 'https://existing-service.com');
+        DnsClient::clear();
+        DnsClient::setService('existing-service', 'https://existing-service.com');
     }
 
     /**
@@ -415,7 +366,8 @@ class ServiceClientUnitTests extends \PHPUnit\Framework\TestCase
     /**
      * Mtrhod tests case when sendRequest method have returned invalid json
      */
-    public function testInvalidJsonReturnedFromSendRequest():void{
+    public function testInvalidJsonReturnedFromSendRequest(): void
+    {
         // setup and assertions
         $this->expectException(\Mezon\Rest\Exception::class);
         $client = new TestingServiceClient('https://some-service');
