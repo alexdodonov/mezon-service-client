@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "mezon/custom-client",
-            "version": "1.0.11",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-custom-client.git",
-                "reference": "d657dc6c7b0a609ba328615ca2cabc352589024e"
+                "reference": "438755fcf50700f895fd3d83d9e31eabc5d9b813"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-custom-client/zipball/d657dc6c7b0a609ba328615ca2cabc352589024e",
-                "reference": "d657dc6c7b0a609ba328615ca2cabc352589024e",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-custom-client/zipball/438755fcf50700f895fd3d83d9e31eabc5d9b813",
+                "reference": "438755fcf50700f895fd3d83d9e31eabc5d9b813",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "issues": "https://github.com/alexdodonov/mezon-custom-client/issues",
                 "source": "https://github.com/alexdodonov/mezon-custom-client"
             },
-            "time": "2020-10-09T16:12:38+00:00"
+            "time": "2020-12-03T16:48:16+00:00"
         },
         {
             "name": "mezon/dns-client",

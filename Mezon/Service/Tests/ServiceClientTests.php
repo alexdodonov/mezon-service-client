@@ -17,7 +17,7 @@ namespace Mezon\Service\Tests;
  * @author Dodonov A.A.
  * @group baseTests
  */
-class ServiceClientTests extends \PHPUnit\Framework\TestCase
+class ServiceClientTests extends TestCase
 {
 
     /**
