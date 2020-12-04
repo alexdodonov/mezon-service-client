@@ -1,6 +1,8 @@
 <?php
 namespace Mezon\Service\Tests;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Class ServiceClientTests
  *
