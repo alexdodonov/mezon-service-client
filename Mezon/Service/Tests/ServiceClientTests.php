@@ -104,25 +104,17 @@ class ServiceClientTests extends TestCase
     }
 
     /**
-     * Testing setting invalid token
-     */
-    public function testSetInValidToken(): void
-    {
-        $client = new $this->clientClassName();
-
-        $this->expectException(\Exception::class);
-        $client->setToken('unexistingtoken');
-    }
-
-    /**
      * Testing loginAs method
      */
     public function testLoginAs(): void
     {
+        // setup
         $client = $this->constructClient();
 
+        // test body
         $client->loginAs($this->existingLogin);
 
+        // assertions
         $this->addToAssertionCount(1);
     }
 
@@ -131,9 +123,29 @@ class ServiceClientTests extends TestCase
      */
     public function testFailedLoginAs(): void
     {
+        // setup
         $client = $this->constructClient();
 
+        // assertions
         $this->expectException(\Exception::class);
+
+        // test body
         $client->loginAs('alexey@dodonov.none', 'login');
+    }
+    
+    /**
+     * Testing setting invalid token
+     */
+    public function testSetInValidToken(): void
+    {
+        // TODO add test if '' token was passed and exception was thrown
+        // setup
+        $client = new $this->clientClassName();
+        
+        // test body
+        $client->setToken('unexistingtoken');
+        
+        // assertions
+        $this->assertEquals('unexistingtoken', $client->getToken());
     }
 }
