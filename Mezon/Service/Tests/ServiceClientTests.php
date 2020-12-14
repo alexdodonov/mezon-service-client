@@ -35,18 +35,6 @@ class ServiceClientTests extends TestCase
     protected $existingLogin = '';
 
     /**
-     * Constructor
-     *
-     * @param string $existingLogin
-     */
-    public function __construct(string $existingLogin)
-    {
-        parent::__construct();
-
-        $this->existingLogin = $existingLogin;
-    }
-
-    /**
      * Method creates client object
      *
      * @param string $password
