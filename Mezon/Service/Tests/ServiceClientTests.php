@@ -120,20 +120,36 @@ class ServiceClientTests extends TestCase
         // test body
         $client->loginAs('alexey@dodonov.none', 'login');
     }
-    
+
     /**
      * Testing setting invalid token
      */
     public function testSetInValidToken(): void
     {
-        // TODO add test if '' token was passed and exception was thrown
         // setup
         $client = new $this->clientClassName();
-        
+
         // test body
         $client->setToken('unexistingtoken');
-        
+
         // assertions
         $this->assertEquals('unexistingtoken', $client->getToken());
+    }
+
+    /**
+     * Testing empty token setups
+     */
+    public function testSetEmptyToken(): void
+    {
+        // TODO add snippet for creating test wich tests exception throwing
+        // TODO build mezon/mezon in jenkins
+        // assertions
+        $this->expectException(\Exception::class);
+
+        // setup
+        $client = new $this->clientClassName();
+
+        // test body
+        $client->setToken('');
     }
 }
