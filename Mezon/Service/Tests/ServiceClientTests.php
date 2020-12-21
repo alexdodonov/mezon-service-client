@@ -142,7 +142,6 @@ class ServiceClientTests extends TestCase
     public function testSetEmptyToken(): void
     {
         // TODO add snippet for creating test wich tests exception throwing
-        // TODO build mezon/mezon in jenkins
         // assertions
         $this->expectException(\Exception::class);
 
