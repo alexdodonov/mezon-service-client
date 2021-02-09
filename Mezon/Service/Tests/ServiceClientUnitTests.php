@@ -46,7 +46,9 @@ class ServiceClientUnitTests extends TestCase
     {
         return $this->getMockBuilder($this->clientClassName)
             ->setMethods($methods)
-            ->disableOriginalConstructor()
+            ->setConstructorArgs([
+            'http://some-service-url'
+        ])
             ->getMock();
     }
 
