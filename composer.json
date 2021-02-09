@@ -16,16 +16,16 @@
 	},
 	"require": {
 		"php": ">=7.2",
-		"mezon/custom-client" : "^1.0",
-		"mezon/dns-client" : "^1.0",
-		"mezon/rest-exception": "^1.0"
+		"mezon/custom-client" : "1.0.*",
+		"mezon/dns-client" : "1.0.*",
+		"mezon/rest-exception": "1.0.*"
 	},
 	"support": {
 		"email": "alexey@dodonov.pro",
 		"issues": "https://github.com/alexdodonov/mezon-service-client/issues",
 		"source": "https://github.com/alexdodonov/mezon-service-client"
 	},
-	"minimum-stability": "dev",
+	"minimum-stability": "stable",
 	"homepage": "https://github.com/alexdodonov/mezon-service-client",
 	"prefer-stable": true,
 	"autoload": {
