@@ -286,10 +286,10 @@ class ServiceClient extends CustomClient
     {
         $jsonBody = json_decode(parent::dispatchResult($url, $code, $body));
 
-        if (isset($jsonBody->message)) {
-            throw (new \Exception($jsonBody->message, $jsonBody->code));
-        } elseif ($jsonBody === null) {
+        if ($jsonBody === null) {
             throw (new \Mezon\Rest\Exception("Invalid result dispatching", - 3, $code, $body, $url));
+        } elseif (isset($jsonBody->message)) {
+            throw (new \Mezon\Rest\Exception($jsonBody->message, $jsonBody->code, $code, $body, $url));
         }
 
         return $jsonBody;
