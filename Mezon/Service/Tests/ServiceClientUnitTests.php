@@ -9,14 +9,17 @@ use Mezon\DnsClient\DnsClient;
  * Basic tests for service client
  *
  * @author Dodonov A.
- * @group baseTests
  * @codeCoverageIgnore
+ * @psalm-suppress PropertyNotSetInConstructor
  */
 class ServiceClientUnitTests extends TestCase
 {
 
     /**
      * Client class name
+     * 
+     * @var string
+     * @psalm-var class-string
      */
     protected $clientClassName = ServiceClient::class;
 
@@ -45,7 +48,7 @@ class ServiceClientUnitTests extends TestCase
         ]): object
     {
         return $this->getMockBuilder($this->clientClassName)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->setConstructorArgs([
             'http://some-service-url'
         ])
@@ -320,7 +323,7 @@ class ServiceClientUnitTests extends TestCase
                 return true;
             }),
             $this->callback(
-                function ($headers) {
+                function (array $headers) {
                     $this->assertContains('Authentication: Basic some-token', $headers);
                     $this->assertContains('Cgi-Authorization: Basic some-token', $headers);
                     return true;

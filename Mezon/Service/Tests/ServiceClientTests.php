@@ -18,12 +18,15 @@ use PHPUnit\Framework\TestCase;
  *
  * @author Dodonov A.A.
  * @group baseTests
+ * @psalm-suppress PropertyNotSetInConstructor
  */
 class ServiceClientTests extends TestCase
 {
 
     /**
      * Client class name
+     *
+     * @var string
      */
     protected $clientClassName = '';
 
@@ -103,7 +106,7 @@ class ServiceClientTests extends TestCase
         $client->loginAs($this->existingLogin);
 
         // assertions
-        $this->addToAssertionCount(1);
+        $this->assertTrue(true);
     }
 
     /**
